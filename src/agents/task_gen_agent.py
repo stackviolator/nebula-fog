@@ -18,6 +18,4 @@ class TaskGeneratorAgent:
         prompt += f"--- Task Archive ---\n{self.task_archive}"
         prompt += "\n"
         prompt += requirements
-        temp = self.agent.run(prompt)
-        print("\n\n\n\n")
-        print(temp)
+        return self.agent.run(prompt)

@@ -31,9 +31,5 @@ if __name__ == "__main__":
     # Generate task reqs
     reqs = task_gen_agent.run("")
 
-    print(reqs)
-    print(type(reqs))
-    kill_self()
-
     # Create tf deployment
     env_gen_agent.run(reqs)
