@@ -1,12 +1,39 @@
 from smolagents import (
     CodeAgent,
     HfApiModel,
-    GradioUI,
+    ManagedAgent,
     DuckDuckGoSearchTool
 )
+from src.agents.task_gen_agent import TaskGeneratorAgent
+from src.agents.environment_generator import EnvironmentGeneratorAgent
+
+def kill_self():
+    import sys
+    sys.exit(0)
 
 if __name__ == "__main__":
-    agent = CodeAgent(
-        tools=[], model=HfApiModel(), max_steps=4, verbosity_level=1,
+    model = HfApiModel()
+
+    web_agent = CodeAgent(tools=[DuckDuckGoSearchTool()], model=model)
+    managed_web_agent = ManagedAgent(
+        agent=web_agent,
+        name="web_search",
+        description="Runs web searches for you. Give it your query as an argument."
     )
-    agent.run("Write a yaml file to deploy a domain controller with windows server 2022")
+    manager_agent = CodeAgent(
+        tools=[], model=model, managed_agents=[managed_web_agent]
+    )
+
+    # Agent set up
+    task_gen_agent = TaskGeneratorAgent([], model)
+    env_gen_agent = EnvironmentGeneratorAgent([], model)
+
+    # Generate task reqs
+    reqs = task_gen_agent.run("")
+
+    print(reqs)
+    print(type(reqs))
+    kill_self()
+
+    # Create tf deployment
+    env_gen_agent.run(reqs)
