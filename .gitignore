@@ -40,4 +40,4 @@ dist/
 # Ignore specific files or directories
 config.yaml
 secret.key
-
+.pem
