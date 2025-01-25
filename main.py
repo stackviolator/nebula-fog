@@ -29,9 +29,9 @@ if __name__ == "__main__":
     env_gen_agent = EnvironmentGeneratorAgent([], model)
 
     # Generate task reqs
-    reqs = task_gen_agent.run("")
+    # reqs = task_gen_agent.run("")
 
     # Create tf deployment
-    env_gen_agent.run(reqs)
+    # env_gen_agent.run(reqs)
 
-    # print(DeployTerraformToAws("./templates"))
+    print(DeployTerraformToAws("./templates"))
