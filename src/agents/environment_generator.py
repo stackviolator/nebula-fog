@@ -3,6 +3,46 @@ from smolagents import (
     tool
 )
 import os
+from python_terraform import Terraform, IsFlagged
+
+def DeployTerraformToAws(terraform_dir: str, variables=None):
+    """
+    Deploy a Terraform script to AWS using the Terraform SDK.
+
+    Args:
+        terraform_dir (str): Path to the Terraform configuration directory.
+        variables (dict): A dictionary of Terraform variables to be passed during the apply stage.
+    """
+    try:
+        # Initialize Terraform
+        tf = Terraform(working_dir=terraform_dir)
+        print(f"Initializing Terraform in directory: {terraform_dir}")
+        return_code, stdout, stderr = tf.init()
+        if return_code != 0:
+            return (f"Terraform initialization failed: {stderr}")
+
+        # Apply the Terraform script
+        print("Applying Terraform configuration...")
+        apply_params = {"auto-approve": IsFlagged}
+        if variables:
+            apply_params.update(variables)
+        
+        return_code, stdout, stderr = tf.apply(input=False, **apply_params)
+        if return_code != 0:
+            return(f"Terraform apply failed: {stderr}")
+        
+        # Fetch outputs
+        print("Fetching Terraform outputs...")
+        return_code, outputs, stderr = tf.output(full_value=True)
+        if return_code != 0:
+            return (f"Failed to fetch Terraform outputs: {stderr}")
+        
+        print("Terraform deployment completed successfully.")
+        return outputs
+    
+    except Exception as e:
+        print(f"Error during Terraform deployment: {e}")
+        raise
 
 @tool
 def WriteFileTool(file_name: str, content: str) -> bool:

@@ -5,7 +5,7 @@ from smolagents import (
     DuckDuckGoSearchTool
 )
 from src.agents.task_gen_agent import TaskGeneratorAgent
-from src.agents.environment_generator import EnvironmentGeneratorAgent
+from src.agents.environment_generator import EnvironmentGeneratorAgent, DeployTerraformToAws
 
 def kill_self():
     import sys
@@ -33,3 +33,5 @@ if __name__ == "__main__":
 
     # Create tf deployment
     env_gen_agent.run(reqs)
+
+    # print(DeployTerraformToAws("./templates"))
