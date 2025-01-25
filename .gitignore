@@ -1,0 +1,43 @@
+templates/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment directories
+venv/
+.env/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/project configuration files
+.idea/
+.vscode/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Ignore compiled files
+*.o
+*.out
+*.class
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# Ignore build directories
+build/
+dist/
+*.egg-info/
+
+# Ignore specific files or directories
+config.yaml
+secret.key
+
