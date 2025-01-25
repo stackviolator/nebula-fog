@@ -20,7 +20,7 @@ class TaskGeneratorAgent:
         Prompt is appneded with requirements (make it a little more difficult)
         TODO: fiddle with requirements
         """
-        prompt = "Your goal is to generate the requirements (in english) to an active directory network. Your network should be slightly more difficult than the previous examples. If the task archive is none, generate a simple Active directory netowrk with one DC and one workstation where the admin password is 'password'\n"
+        prompt = "Your goal is to generate the requirements (in english) to an active directory network. Your network should be slightly more difficult than the previous examples. If the task archive is none, generate a simple Active directory netowrk with one just one Domain controller where the admin password is 'password'. Ensure the network is accessible over the internet\n"
         prompt += f"--- Task Archive ---\n{self.task_archive}"
         prompt += "\n"
         prompt += requirements
